@@ -1,43 +1,122 @@
-# VietnamScamInspector
+# 🇻🇳 VietnamScamInspector
 
-TODO: Delete this and the text below, and describe your gem
+**VietnamScamInspector** là một Ruby gem giúp kiểm tra **số điện thoại**, **email**, hoặc **tài khoản ngân hàng** có nằm trong **danh sách nghi ngờ lừa đảo** tại Việt Nam hay không.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/vietnam_scam_inspector`. To experiment with that code, run `bin/console` for an interactive prompt.
+> 📌 Dữ liệu do người dùng và tổ chức nội bộ đóng góp, được kiểm duyệt trước khi đưa vào hệ thống. Không dựa vào nguồn không xác minh.
 
-## Installation
+---
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+## 📦 Cài đặt
 
-Install the gem and add to the application's Gemfile by executing:
+Thêm vào `Gemfile` nếu dùng Bundler:
 
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+```ruby
+gem 'vietnam_scam_inspector'
 ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+Hoặc cài thủ công:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem install vietnam_scam_inspector
 ```
 
-## Usage
+---
 
-TODO: Write usage instructions here
+## 🚀 Cách sử dụng
 
-## Development
+### ✅ Dùng trong mã Ruby:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```ruby
+require "vietnam_scam_inspector"
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+result = VietnamScamInspector.check("0976123456")
 
-## Contributing
+if result[:scam]
+  puts "🚨 Lừa đảo: #{result[:reason]} (Nguồn: #{result[:source]})"
+else
+  puts "✅ Không có dấu hiệu lừa đảo"
+end
+```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/vietnam_scam_inspector. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/vietnam_scam_inspector/blob/master/CODE_OF_CONDUCT.md).
+### 💻 Dùng qua dòng lệnh:
 
-## License
+```bash
+scam-check 0976123456
+```
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+Kết quả:
 
-## Code of Conduct
+```bash
+🚨 LỪA ĐẢO: 0976123456
+→ Lý do: Giả danh công an
+→ Nguồn: CSKH
+```
 
-Everyone interacting in the VietnamScamInspector project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/vietnam_scam_inspector/blob/master/CODE_OF_CONDUCT.md).
+---
+
+## 🧠 Hệ thống tự nhận diện
+
+| Đầu vào ví dụ       | Hệ thống hiểu là       |
+| ------------------- | ---------------------- |
+| `0976123456`        | 📱 Số điện thoại       |
+| `scam@fakebank.com` | 📧 Email               |
+| `123456789012`      | 🏦 Tài khoản ngân hàng |
+
+---
+
+## ✏️ Cập nhật dữ liệu
+
+Bạn có thể thêm dữ liệu mới (nếu chưa tồn tại) bằng mã Ruby:
+
+```ruby
+VietnamScamInspector::Updater.add_entry(
+  type: :phone,
+  value: "0909123456",
+  reason: "Giả danh tuyển dụng",
+  source: "admin_report"
+)
+```
+
+> Có thể thay `:phone` bằng `:email` hoặc `:bank_account`.
+
+---
+
+## 🧪 Kiểm thử
+
+Chạy tất cả kiểm thử:
+
+```bash
+bundle exec rspec
+```
+
+---
+
+## 📁 Dữ liệu
+
+Dữ liệu được lưu dưới dạng JSON trong thư mục `data/`, bao gồm:
+
+- `phones.json`
+- `emails.json`
+- `bank_accounts.json`
+
+> ⚠️ Dữ liệu là nội bộ, được duyệt trước khi sử dụng. Không sử dụng dữ liệu chưa xác minh hoặc từ nguồn không rõ ràng.
+
+---
+
+## 📄 Giấy phép
+
+MIT License – Tự do sử dụng, chỉnh sửa, chia sẻ.
+
+---
+
+## ✨ Tác giả
+
+- **Tran The Minh**
+- GitHub: [https://github.com/TranTheMinh09](https://github.com/TranTheMinh09)
+
+---
+
+## 🤝 Đóng góp
+
+Pull request luôn được chào đón.  
+Nếu bạn muốn đóng góp thêm dữ liệu hoặc ý tưởng, hãy tạo issue hoặc liên hệ tác giả.
