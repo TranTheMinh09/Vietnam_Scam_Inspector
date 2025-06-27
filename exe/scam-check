@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/vietnam_scam_inspector"
+
+input = ARGV[0]
+
+if input.nil? || input.strip.empty?
+  puts "❌ Bạn cần nhập số điện thoại, email hoặc tài khoản ngân hàng."
+  puts "Ví dụ: scam-check 0976123456"
+  exit 1
+end
+
+result = VietnamScamInspector.check(input)
+
+if result[:scam]
+  puts "🚨 LỪA ĐẢO: #{input}"
+  puts "→ Lý do: #{result[:reason]}"
+  puts "→ Nguồn: #{result[:source]}"
+else
+  puts "✅ Không có dấu hiệu lừa đảo: #{input}"
+end
