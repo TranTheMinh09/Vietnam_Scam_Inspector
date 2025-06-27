@@ -10,6 +10,3 @@
 # rspec failure tracking
 .rspec_status
 test.rb
-data/
-checker.rb
-data_loader.rb
