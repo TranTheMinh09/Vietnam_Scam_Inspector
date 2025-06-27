@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.metadata["homepage_uri"]     = spec.homepage
   spec.metadata["source_code_uri"]  = "https://github.com/TranTheMinh09/vietnam_scam_inspector"
   spec.metadata["changelog_uri"]    = "https://github.com/TranTheMinh09/vietnam_scam_inspector/blob/main/CHANGELOG.md"
+  spec.metadata["rubygems_mfa_required"] = "true"
 
   # Tự động thêm file có trong Git repo (trừ các thư mục loại trừ)
   gemspec = File.basename(__FILE__)
@@ -37,4 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop", "~> 1.0"
   spec.add_development_dependency "rubocop-performance"
   spec.add_development_dependency "rubocop-rspec"
+  # Web crawler dependencies
+  spec.add_dependency "httparty"
+  spec.add_dependency "nokogiri"
 end
